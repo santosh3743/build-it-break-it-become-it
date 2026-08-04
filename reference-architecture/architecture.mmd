@@ -1,0 +1,22 @@
+%% Build It, Break It, Become It — reference architecture (Act I: clean)
+%% Act II overlays trust boundaries + attack arrows on this same graph (Lab 07).
+%% Act III re-draws it with controls in place (capstone).
+flowchart LR
+    subgraph DATA["Data plane (Labs 01-03)"]
+        SRC[Sources] --> PIPE[Data pipeline<br/>dedup · filter · decontaminate · PII scrub]
+        PIPE --> TOK[Tokenized shards<br/>+ datasheet]
+    end
+
+    TOK --> TRAIN[Train / post-train<br/>SFT · DPO]
+    TRAIN --> MODEL[(Model<br/>the brain)]
+
+    subgraph HARNESS["Harness (the body around the model)"]
+        LOOP[Agent loop<br/>sense - think - act] --> TOOLS[Tools / MCP]
+        LOOP --> MEM[(Memory)]
+        LOOP --> MODEL
+    end
+
+    USER([User]) --> LOOP
+    MODEL --> SERVE[Serving<br/>rate + cost limits]
+    SERVE --> OBS[Observability<br/>tracing · cost · guardrails · kill-switch]
+    OBS --> USER

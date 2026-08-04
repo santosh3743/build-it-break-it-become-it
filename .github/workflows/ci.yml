@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test-labs:
+    name: Test labs (py${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install pytest
+        run: python -m pip install --upgrade pip pytest
+
+      - name: Run every lab's tests
+        shell: bash
+        run: |
+          set -e
+          shopt -s nullglob
+          failed=0
+          for dir in labs/*/ capstone/ capstone/*/; do
+            [ -d "$dir" ] || continue
+            # Install this lab's extra deps if it declares any.
+            if [ -f "${dir}requirements.txt" ]; then
+              echo "::group::deps for $dir"
+              python -m pip install -r "${dir}requirements.txt" || true
+              echo "::endgroup::"
+            fi
+            # Run tests if this folder has any.
+            if [ -d "${dir}tests" ] || ls "${dir}"test_*.py >/dev/null 2>&1; then
+              echo "::group::tests for $dir"
+              if ( cd "$dir" && python -m pytest -q ); then
+                echo "PASS  $dir"
+              else
+                echo "FAIL  $dir"
+                failed=1
+              fi
+              echo "::endgroup::"
+            fi
+          done
+          exit $failed

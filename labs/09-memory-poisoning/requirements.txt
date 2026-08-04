@@ -1,0 +1,6 @@
+# Lab 09 runs on the Python standard library alone — no install needed.
+# Optional, only if you want to run the test suite via pytest instead of unittest:
+#   pytest>=8.0
+#
+# Exercise 5 (swap in a real embedder) optionally needs:
+#   sentence-transformers>=3.0
