@@ -1,0 +1,32 @@
+%% Build It, Break It, Become It — Lab 02 detail view
+%% Expands the TOK -> TRAIN -> MODEL edge of the Act I clean architecture.
+%% The dashed edges are provenance, not data: they are what makes the run provable.
+flowchart LR
+    subgraph DATA["Lab 01 — data plane"]
+        TOK[Tokenized shards<br/>+ datasheet]
+        HASH1[["shard sha256"]]
+        TOK -.-> HASH1
+    end
+
+    TOK --> BATCH[Batching<br/>x = tokens t..t+ctx<br/>y = x shifted by 1]
+
+    subgraph LOOP["Lab 02 — the training loop"]
+        BATCH --> FWD[Forward<br/>embed · attention · MLP · residual]
+        FWD --> LOSS[Cross-entropy loss]
+        LOSS --> BWD[Backward<br/>reverse-mode autodiff]
+        BWD --> CLIP[Clip global grad norm]
+        CLIP --> OPT[AdamW step]
+        OPT --> SCHED[LR schedule<br/>warmup - cosine decay]
+        SCHED --> BATCH
+    end
+
+    SEED([seed]) -.-> FWD
+    SEED -.-> BATCH
+
+    OPT --> CKPT[(Checkpoint<br/>JSON weights)]
+    CKPT --> MODEL[(Model<br/>the brain)]
+    CKPT -.-> HASH2[["checkpoint sha256"]]
+
+    HASH1 -.-> PROV{{"Provenance chain:<br/>these tokens + this seed<br/>=> these weights"}}
+    HASH2 -.-> PROV
+    SEED -.-> PROV

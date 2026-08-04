@@ -38,7 +38,7 @@ Three principles hold throughout:
 | # | Post | Act | Lab | Level | Hardware | Status |
 |---|------|-----|-----|-------|----------|--------|
 | 01 | The Data Engine | Build | [`labs/01-data-engine`](labs/01-data-engine) | ⚙⚙ | CPU | ✅ Done |
-| 02 | Train an SLM From Scratch | Build | `labs/02-train-slm` | ⚙⚙⚙ | GPU rec. / CPU tiny | ⏳ Planned |
+| 02 | Train an SLM From Scratch | Build | [`labs/02-train-slm`](labs/02-train-slm) | ⚙⚙⚙ | CPU | ✅ Done |
 | 03 | Post-Training: SFT + DPO | Build | `labs/03-post-training` | ⚙⚙⚙ | GPU rec. / mock | ⏳ Planned |
 | 04 | Evaluation That Means Something | Build | `labs/04-evaluation` | ⚙⚙ | CPU / API opt. | ⏳ Planned |
 | 05 | Serving & the KV Cache | Build | `labs/05-serving` | ⚙⚙⚙ | GPU / CPU mock | ⏳ Planned |

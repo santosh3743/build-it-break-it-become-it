@@ -1,0 +1,6 @@
+# Lab 02 has NO required dependencies. It runs on Python 3.10+ standard library.
+#
+# numpy is optional and used for one thing: the matmul inside autograd.py.
+# With it, the tiny config trains in ~2 minutes; without it, ~10. The numerics
+# and the results are identical either way -- see autograd.py's import guard.
+numpy>=1.21

@@ -8,6 +8,13 @@ One diagram runs through the whole series. It is the system you build in Act I, 
 
 Each lab that changes the picture drops its own variant here (e.g. `architecture-act2-threats.mmd`, `architecture-act3-hardened.mmd`) so the evolution is visible in one folder.
 
+## Detail views
+
+| File | Lab | What it expands |
+|---|---|---|
+| `architecture.mmd` | — | The Act I clean architecture (below). |
+| `architecture-lab02-training.mmd` | 02 | The `shards → train → model` edge: the training loop step by step, plus the provenance chain (shard hash + seed + checkpoint hash) that makes the run provable. |
+
 ## The Act I clean architecture
 
 ```mermaid
