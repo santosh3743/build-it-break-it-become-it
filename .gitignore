@@ -47,3 +47,9 @@ Thumbs.db
 *_BUILD-SPEC.md
 *-Plan.md
 _planning/
+
+# Substack working files (drafts live next to the repo, not in it)
+posts/
+SERIES-POST-TEMPLATE.md
+section-art.png
+*.zip
