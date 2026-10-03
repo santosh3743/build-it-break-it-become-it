@@ -49,8 +49,10 @@ def main() -> None:
     print(f"  DPO preference acc .... {result.dpo_accuracies[0] * 100:5.0f}% -> "
           f"{result.dpo_accuracies[-1] * 100:5.0f}%")
     print("""
-  DPO's loss starts at ln2 = 0.693 by construction: the policy IS the reference
-  at step 0, so the margin is exactly zero and it has no preference at all.""")
+  The DPO margin starts at exactly 0: the policy IS the reference at step 0,
+  so it has no preference yet and the DPO term is ln2 = 0.693. The printed loss
+  starts a little higher because it also includes the 0.5 x NLL(chosen)
+  regularizer that keeps the preferred answer fluent (see post_training.py).""")
 
     print("\n" + "=" * 72)
     print("  SAME PROMPT, THREE MODELS")

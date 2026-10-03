@@ -1,0 +1,6 @@
+# Lab 03 has NO required dependencies. It runs on Python 3.10+ standard library.
+#
+# It reuses Lab 02's engine, so the same optional speedup applies: numpy is used
+# only for the matmul inside labs/02-train-slm/autograd.py. Results are the same
+# either way; the run is just slower without it.
+numpy>=1.21

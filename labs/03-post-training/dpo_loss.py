@@ -162,8 +162,9 @@ if __name__ == "__main__":
   Read the table top to bottom:
     row 1  policy matches the reference -> margin 0, loss ln2 = 0.693. The
            starting point of every DPO run.
-    row 3  policy strongly prefers chosen -> loss near 0, gradient weight
-           collapses to ~0.037. This pair is done; it stops pulling.
+    row 3  policy strongly prefers chosen -> loss falls to 0.31, gradient weight
+           drops to ~0.027, about half its starting value. The further
+           a pair is past right, the less it pulls.
     row 5  policy prefers the REJECTED answer -> loss 1.31 and the largest
            gradient weight. The loss spends its budget where it is wrong.
 
