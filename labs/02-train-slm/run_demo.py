@@ -77,7 +77,7 @@ def main() -> None:
     r = ds.report
     print(f"  {r.docs_in} raw documents in")
     print(f"    - {r.duplicates_removed} near-duplicates removed (MinHash/LSH)")
-    print(f"    - {r.quality_removed} quality-filtered  {r.rejections}")
+    print(f"    - {r.quality_removed} quality-filtered  { {k: v for k, v in r.rejections.items() if k != 'contaminated'} }")
     print(f"    - {r.contaminated_removed} eval-contaminated document dropped")
     print(f"    - {r.pii_redactions} PII spans redacted")
     print(f"  -> {r.docs_out} documents · {r.tokens_out:,} tokens · "

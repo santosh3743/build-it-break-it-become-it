@@ -4,7 +4,7 @@
 
 Take a model that can only continue text and turn it into one that answers, then into one that answers *the way you prefer*. This lab runs all three stages, pretraining, supervised fine-tuning (SFT) and Direct Preference Optimization (DPO), on **Lab 02's engine, unchanged**, and puts the same eight prompts to all three models.
 
-The runtime is **about 2 minutes on a CPU**.
+The runtime is **about 2–5 minutes on a CPU**, depending on the machine.
 
 **No GPU. No API key. No downloads. No torch.** `numpy` is optional and only makes it faster.
 
@@ -101,7 +101,7 @@ What *does* transfer to full scale is every mechanism: response-only loss maskin
 
 ## The trap: DPO will reward-hack if you let it
 
-Set `dpo_nll_weight=0.0` in `pipeline.py` and run the demo again. Every training number improves: preference accuracy 100%, margin past 8, loss near 0.03. The samples come out as:
+Set `dpo_nll_weight=0.0` in `pipeline.py` and run the demo again. Every training number improves: preference accuracy 100%, margin past 9, loss near 0.001. The samples come out as:
 
 ```
 is . based . based . based . based . based on . measure

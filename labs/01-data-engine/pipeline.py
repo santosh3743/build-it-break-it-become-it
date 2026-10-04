@@ -180,11 +180,16 @@ def contamination_ratio(text: str, eval_index: set[str], k: int = 5) -> float:
 # --------------------------------------------------------------------------- #
 # 5. PII scrubbing
 # --------------------------------------------------------------------------- #
+# Order matters: patterns run top to bottom. API keys go FIRST, otherwise the
+# phone pattern eats the digit run inside a key and leaves its prefix and
+# suffix behind (Lab 06 caught this: "sk-FAKE1234567890abcdEF" used to come
+# out as "sk-FAKE[PHONE]abcdEF"). Keys may have several segments, e.g.
+# "sk-test-FAKE...".
 _PII_PATTERNS = {
+    "APIKEY": re.compile(r"\b(?:sk|api|key|token)[-_](?:[A-Za-z0-9]+[-_])*[A-Za-z0-9]{12,}\b", re.I),
     "EMAIL": re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}"),
     "PHONE": re.compile(r"(?<!\d)(?:\+?\d{1,3}[\s-]?)?(?:\d[\s-]?){9,12}\d(?!\d)"),
     "CARD": re.compile(r"(?<!\d)(?:\d[ -]?){13,16}(?!\d)"),
-    "APIKEY": re.compile(r"\b(?:sk|api|key|token)[-_][A-Za-z0-9]{12,}\b", re.I),
 }
 
 

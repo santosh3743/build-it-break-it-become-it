@@ -41,7 +41,7 @@ The sample corpus (`sample_corpus.py`) is hand-built to exercise every stage: cl
 | `pipeline.py` | The whole pipeline — each stage is a small, readable function. |
 | `sample_corpus.py` | Tiny corpus + eval set that trips every control. |
 | `run_demo.py` | Runs the pipeline, prints the before/after report + datasheet. |
-| `tests/test_pipeline.py` | Asserts every control does its job (7 tests). |
+| `tests/test_pipeline.py` | Asserts every control does its job (8 tests). |
 | `exercises.md` | Go deeper — tune the LSH curve, add filters, try to beat decontamination. |
 | `SECURITY.md` | Why this pipeline is also your first supply-chain defense. |
 

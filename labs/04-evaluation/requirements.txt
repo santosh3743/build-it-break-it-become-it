@@ -1,0 +1,2 @@
+# Lab 04 has NO dependencies. It runs on the Python 3.10+ standard library only.
+# Nothing to install. (CI installs this file, so it exists, but it's comments only.)

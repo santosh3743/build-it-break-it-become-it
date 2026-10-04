@@ -1,0 +1,5 @@
+# Lab 06 has NO dependencies. It runs on the Python 3.10+ standard library only.
+#
+# It reuses Lab 01's PII scrubber (labs/01-data-engine/pipeline.py), which is
+# also standard-library only, so clone the whole repo rather than this folder.
+# pytest is optional: `python tests/test_observability.py` runs the same tests.

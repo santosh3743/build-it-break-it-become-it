@@ -20,7 +20,7 @@ def main() -> None:
     print("=" * 60)
     print(f"  documents in .................. {rep.docs_in}")
     print(f"  - near-duplicates removed ..... {rep.duplicates_removed}")
-    print(f"  - quality-filtered ............ {rep.quality_removed}  {rep.rejections}")
+    print(f"  - quality-filtered ............ {rep.quality_removed}  { {k: v for k, v in rep.rejections.items() if k != 'contaminated'} }")
     print(f"  - contaminated removed ........ {rep.contaminated_removed}")
     print(f"  PII spans redacted ............ {rep.pii_redactions}")
     print("-" * 60)

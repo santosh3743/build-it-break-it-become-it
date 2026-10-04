@@ -1,0 +1,4 @@
+# Lab 05 has NO dependencies. It runs on the Python 3.10+ standard library.
+#
+# The optional GPU path described in the README (vLLM) is not used by any code
+# in this folder and is deliberately not listed here, so CI never installs it.

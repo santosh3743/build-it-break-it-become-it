@@ -18,7 +18,7 @@ Run three variants by editing `TINY` in `train.py`:
 
 For each, predict the loss curve's shape before running, then compare against `out/loss_curve.tsv`.
 
-**What to look for:** the no-warmup run and the LR-too-high run fail differently. One recovers; one produces a gradient-norm spike in the first ten steps and then a loss that never comes back. Watch the `grad norm` column, not the loss — it moves first.
+**What to look for:** the no-warmup run and the LR-too-high run fail differently. Without warmup the early steps are rough. At 10× the learning rate you get a gradient-norm spike in the first ten steps (about 20 against a normal peak near 3); on this tiny model it then recovers, and can even finish lower. Push it further (try `1e-1`) and find the rate at which it stops recovering. "Too high" is a property of the run, not a fixed number. Watch the `grad norm` column, not the loss — it moves first.
 
 **Done when:** you can look at a loss curve alone and say which of the three it came from.
 

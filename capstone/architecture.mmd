@@ -1,0 +1,49 @@
+%% Build It, Break It, Become It -- capstone: the digital twin, with controls in place.
+%% Five parts: corpus -> persona/voice -> memory -> hands (tools) -> guardrails.
+%% Every node id below must be represented by a component in twin_threat_model.py;
+%% Lab 07's validator fails the build if one is missing (its "reference" check).
+flowchart LR
+    VISITOR([Visitor]) -->|question| ENDPOINT[Public ask-my-twin endpoint<br/>disclosure banner · rate limit]
+    ENDPOINT --> GUARD[Guardrail gateway<br/>charter checks · escalation · cost caps]
+    GUARD --> LOOP[Twin agent loop<br/>sense · think · act]
+
+    subgraph VOICE["Persona and voice - Post 14"]
+        PERSONA[(Persona contract<br/>charter-derived · exemplars)]
+        LLM[LLM inference]
+    end
+
+    subgraph KNOW["Corpus - Post 14"]
+        CORPUS[(Corpus index<br/>published writing only)]
+    end
+
+    subgraph MEMORY["Memory - Post 15"]
+        MEM[(Memory store<br/>per-visitor · provenance)]
+    end
+
+    subgraph HANDS["Hands - Post 15"]
+        FAQ[faq_answer<br/>read-only]
+        DRAFT[draft_reply<br/>author approves]
+        BOOK[book_call<br/>author approves]
+    end
+
+    subgraph OPS["Guardrails and ops - Post 16"]
+        KILL[Kill-switch]
+        LOGS[(Logs and traces<br/>redacted · hash-chained)]
+    end
+
+    LOOP --> LLM
+    PERSONA --> LOOP
+    CORPUS -->|cited chunks| LOOP
+    LOOP <--> MEM
+    LOOP --> FAQ
+    LOOP --> DRAFT
+    LOOP --> BOOK
+    DRAFT -->|review queue| AUTHOR([Author])
+    BOOK -->|pending request| AUTHOR
+    GUARD -->|escalations| AUTHOR
+    AUTHOR -->|owner channel| KILL
+    KILL -->|halt| GUARD
+    LOOP --> LOGS
+    GUARD --> LOGS
+    AUTHOR -->|curates| CORPUS
+    AUTHOR -->|signs| PERSONA

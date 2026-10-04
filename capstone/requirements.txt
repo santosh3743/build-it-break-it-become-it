@@ -1,0 +1,2 @@
+# The capstone kickoff (Post 13) has NO dependencies. It runs on the Python 3.10+ standard library.
+# (CI installs this file; it intentionally lists nothing.)

@@ -90,6 +90,14 @@ def test_full_pipeline_end_to_end():
     assert set(["docs_in", "docs_out", "shard_hashes"]).issubset(ds)
 
 
+
+def test_api_keys_are_redacted_whole():
+    """Regression: the key pattern runs before the phone pattern (found by Lab 06)."""
+    for key in ("sk-FAKE1234567890abcdEF", "sk-test-FAKE1234567890abcd"):
+        scrubbed, n = scrub_pii(f"use {key} please")
+        assert scrubbed == "use [APIKEY] please" and n == 1, scrubbed
+
+
 if __name__ == "__main__":
     # Allow running without pytest installed.
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
@@ -103,3 +111,4 @@ if __name__ == "__main__":
             print(f"FAIL  {fn.__name__}: {e}")
     print(f"\n{len(fns) - failures}/{len(fns)} tests passed")
     sys.exit(1 if failures else 0)
+

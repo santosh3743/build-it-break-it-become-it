@@ -37,9 +37,9 @@ That write path is the attack surface. **OWASP Top 10 for Agentic Applications (
 
 The scary part, shown in 2025 research, is that you don't need database access:
 
-- **MINJA** (*A Practical Memory Injection Attack against LLM Agents*, Dong et al., 2025) plants malicious records using **query-only interaction** — normal-looking messages — at **~95% injection success**. It works by getting the agent to write a **bridging record** that connects a future victim query to an attacker-chosen behavior.
+- **MINJA** (Dong et al., 2025, *Memory Injection Attacks on LLM Agents via Query-Only Interaction*, first titled *A Practical Memory Injection Attack against LLM Agents*) plants malicious records using **query-only interaction**: normal-looking messages, with no write access to the memory store. A 2026 follow-up evaluation reports over 95% injection success and about 70% attack success under idealised conditions, and much lower effectiveness when the store already holds many legitimate memories. It works by getting the agent to write a **bridging record** that connects a future victim query to an attacker-chosen behavior.
 - **MemoryGraft** (2025) implants malicious "successful experiences" so the agent later *retrieves and repeats* them.
-- A systematic 2025 study found detection- and sanitization-based defenses are **largely ineffective** on their own, because the poison hides plausible reasoning inside otherwise-harmless-looking records.
+- A systematic 2026 study of memory poisoning finds that existing prompt-injection defences do not cover it: the poison arrives as plausible, harmless-looking records written through the agent's normal path.
 
 ### How the attack works in this lab
 
@@ -76,7 +76,7 @@ Any **one** of these drops attack success to 0% — together they are layered:
 
 ### Reading the defended output honestly
 
-In the defended run, the victim's requests return `escalate_to_human` rather than a clean `transfer_to_saved_payee`. That is the fail-closed property working as intended: once this request pattern has been targeted, the system routes it to human review instead of moving money. **Zero requests reach the attacker.** A production system would additionally quarantine the flagged records (see exercises) so the pattern returns to normal after review.
+In the defended run, the victim's requests return `escalate_to_human` rather than a clean `transfer_to_saved_payee`. That is the fail-closed property: once this request pattern has been targeted, the system routes it to human review instead of moving money. **Zero requests reach the attacker.** Note the cost: the attacker can no longer steal, but can still force every victim request into manual review, which is a denial of service. Quarantining the flagged records is what restores normal service. A production system would additionally quarantine the flagged records (see exercises) so the pattern returns to normal after review.
 
 ---
 
@@ -84,13 +84,13 @@ In the defended run, the victim's requests return `escalate_to_human` rather tha
 
 - **Why memory poisoning is stealthier than prompt injection:** prompt injection lives in a single turn; memory poisoning **survives the session** and fires later, against a *different* (benign) input. There's no malicious text in the victim's request to filter.
 - **The bridging step:** MINJA's core trick is engineering the stored record to sit *between* the attacker's setup and the victim's future query in embedding space. Our `rounds` parameter in `attack.py` reinforces that neighbourhood — increase it and watch robustness rise.
-- **Taxonomy:** the 2025 systematic study frames poisoning at three levels — **model** (what the agent trusts), **prompt** (how context is assembled), **system** (how memory is written/retrieved). Our three defenses map onto system-level controls; real deployments need all three levels.
+- **Taxonomy:** the 2026 systematic study frames poisoning at three levels — **model** (what the agent trusts), **prompt** (how context is assembled), **system** (how memory is written/retrieved). Our three defenses map onto system-level controls; real deployments need all three levels.
 
 ---
 
 ## Defender's note
 
-The single most important habit: **memory writes deserve the same review discipline as code commits.** Provenance tags, trust scores, TTLs on learned records, least privilege on the actions memory is allowed to encode, and anomaly detection on the *write* path — not just the read path. Detection alone is reactive; the win is failing closed on sensitive, low-provenance actions.
+The single most important habit: **memory writes deserve the same review discipline as code commits.** Provenance tags, trust scores (this lab records them; using them in the filter is an exercise), TTLs on learned records, least privilege on the actions memory is allowed to encode, and anomaly detection on the *write* path — not just the read path. Detection alone is reactive; the win is failing closed on sensitive, low-provenance actions.
 
 ---
 
@@ -103,9 +103,10 @@ See [`exercises.md`](./exercises.md) — five graded exercises from "make the at
 ## References
 
 - OWASP GenAI Security Project — *Top 10 for Agentic Applications (2026)*, ASI06 Memory & Context Poisoning.
-- Dong et al., *A Practical Memory Injection Attack against LLM Agents* (MINJA), 2025 — arXiv:2601.05504.
+- Dong et al., *Memory Injection Attacks on LLM Agents via Query-Only Interaction* (MINJA; earlier titled *A Practical Memory Injection Attack against LLM Agents*), 2025 — arXiv:2503.03704.
+- Devarangadi Sunil et al., *Memory Poisoning Attack and Defense on Memory Based LLM-Agents*, 2026 — arXiv:2601.05504 (evaluation of MINJA under realistic conditions).
 - Srivastava & He, *MemoryGraft: Persistent Compromise of LLM Agents via Poisoned Experience Retrieval*, 2025 — arXiv:2512.16962.
-- *From Untrusted Input to Trusted Memory: A Systematic Study of Memory Poisoning Attacks in LLM Agents*, 2025 — arXiv:2606.04329.
+- *From Untrusted Input to Trusted Memory: A Systematic Study of Memory Poisoning Attacks in LLM Agents*, 2026 — arXiv:2606.04329.
 - OWASP GenAI Security Project — *Top 10 for LLM Applications (2025)*, LLM08 Vector & Embedding Weaknesses.
 
 *Ethics: every target here is this repo's own toy agent. The attack ships with its defense. For research and defense only.*

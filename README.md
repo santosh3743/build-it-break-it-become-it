@@ -40,16 +40,16 @@ Three principles hold throughout:
 | 01 | The Data Engine | Build | [`labs/01-data-engine`](labs/01-data-engine) | ⚙⚙ | CPU | ✅ Done |
 | 02 | Train an SLM From Scratch | Build | [`labs/02-train-slm`](labs/02-train-slm) | ⚙⚙⚙ | CPU | ✅ Done |
 | 03 | Post-Training: SFT + DPO | Build | [`labs/03-post-training`](labs/03-post-training) | ⚙⚙⚙ | CPU | ✅ Done |
-| 04 | Evaluation That Means Something | Build | `labs/04-evaluation` | ⚙⚙ | CPU / API opt. | ⏳ Planned |
-| 05 | Serving & the KV Cache | Build | `labs/05-serving` | ⚙⚙⚙ | GPU / CPU mock | ⏳ Planned |
-| 06 | Observability, Cost & Guardrails | Build | `labs/06-observability` | ⚙⚙ | CPU | ⏳ Planned |
-| 07 | Threat-Modeling an AI System | Break | `labs/07-threat-model` | ⚙ | CPU | ⏳ Planned |
+| 04 | Evaluation That Means Something | Build | [`labs/04-evaluation`](labs/04-evaluation) | ⚙⚙ | CPU / API opt. | ✅ Done |
+| 05 | Serving & the KV Cache | Build | [`labs/05-serving`](labs/05-serving) | ⚙⚙⚙ | GPU / CPU mock | ✅ Done |
+| 06 | Observability, Cost & Guardrails | Build | [`labs/06-observability`](labs/06-observability) | ⚙⚙ | CPU | ✅ Done |
+| 07 | Threat-Modeling an AI System | Break | [`labs/07-threat-model`](labs/07-threat-model) | ⚙ | CPU | ✅ Done |
 | 08 | Prompt Injection | Break | `labs/08-prompt-injection` | ⚙⚙ | CPU / API opt. | ⏳ Planned |
 | 09 | Memory Poisoning | Break | `labs/09-memory-poisoning` | ⚙⚙⚙ | CPU | ✅ Done |
 | 10 | Tool Abuse & MCP | Break | `labs/10-tool-abuse-mcp` | ⚙⚙ | CPU / mock | ⏳ Planned |
 | 11 | Supply-Chain Poisoning | Break | `labs/11-supply-chain-poisoning` | ⚙⚙⚙ | CPU | ⏳ Planned |
 | 12 | Multi-Agent Cascading Failures | Break | `labs/12-multi-agent` | ⚙⚙ | CPU / mock | ⏳ Planned |
-| 13 | Reborn: Why Build a Digital Twin | Become | [`capstone/`](capstone) | ⚙ | CPU | ⏳ Planned |
+| 13 | Reborn: Why Build a Digital Twin | Become | [`capstone/`](capstone) | ⚙ | CPU | ✅ Done |
 | 14 | Capstone I: Corpus & Voice | Become | `capstone/corpus` · `capstone/persona` | ⚙⚙⚙ | CPU | ⏳ Planned |
 | 15 | Capstone II: Memory & Hands | Become | `capstone/memory` · `capstone/hands` | ⚙⚙⚙ | CPU / GPU opt. | ⏳ Planned |
 | 16 | Capstone III: Productionize | Become | `capstone/` | ⚙⚙⚙ | CPU | ⏳ Planned |
